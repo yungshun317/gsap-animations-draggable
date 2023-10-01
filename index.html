@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GSAP Draggable</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<div id="area">
+    <div id="draggableElement">Drag me!</div>
+    <img id="burger" src="static/burger.png" />
+    <img id="bag" src="static/bag.png" />
+</div>
 
+<script src="gsap.min.js"></script>
+<script src="Draggable.min.js"></script>
+<script>
+    gsap.registerPlugin(Draggable);
+    Draggable.create("#burger, #draggableElement", {
+        // zIndexBoost: false,
+        bounds: "#area",
+        /*
+        type: "rotation",
+        liveSnap: {
+            rotation: function(value) {
+                return Math.round(value / 45) * 45;
+            }
+        },
+        */
+        /*
+        liveSnap: function (value) {
+            return Math.round(value / 45) * 45;
+        },
+        */
+        // liveSnap: [-100, 100],
+        onDrag: function() {
+            if (this.hitTest("#bag", "100%")) {
+                gsap.to(this.target, {
+                    opacity: 0,
+                    scale: 0,
+                    ease: "circ.in"
+                })
+            }
+        }
+    });
+</script>
 </body>
 </html>
